@@ -5,6 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "dev": "ng serve",
     "build": "ng build && cp -R dist/* ../server/public/",
     "test": "ng test",
     "lint": "ng lint",
