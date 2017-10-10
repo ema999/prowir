@@ -4,7 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
+var mysql = require('mysql');
+var dbConstants = require('./config/db');
 
 var index = require('./routes/index');
 var post = require('./routes/post');
@@ -44,11 +45,16 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-// Mongo DB connection
-mongoose.connect('mongodb://localhost/pergaclasificados', function(err, res) {
-  if(err) {
-    console.log('ERROR: connecting to Database. ' + err);
-  }
+// Mysql DB connection
+var conexionDB = mysql.createConnection({
+  host: dbConstants.host,
+  user: dbConstants.user,
+  password: dbConstants.password
+});
+
+conexionDB.connect(function(err) {
+  if (err) throw err;
+  console.log("DB Connected!");
 });
 
 module.exports = app;
