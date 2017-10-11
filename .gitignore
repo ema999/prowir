@@ -1,5 +1,5 @@
 # config directory
-server/config/*
+/server/config/*
 
 # compiled output
 /dist
