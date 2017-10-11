@@ -47,7 +47,6 @@ app.use(function(err, req, res, next) {
 
 // Enviroment
 var enviroment = process.env.ENVIROMENT || 'development';
-
 var constantsEnv = env[enviroment];
 
 // Mysql DB connection
