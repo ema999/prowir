@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "node ./bin/www"
+    "dev": "ENVIROMENT=development node ./bin/www",
+    "prod": "ENVIROMENT=production node ./bin/www",
+    "stage": "ENVIROMENT=staging node ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.17.1",

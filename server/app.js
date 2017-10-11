@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mysql = require('mysql');
-var dbConstants = require('./config/db');
+var env = require('./config/env.json');
 
 var index = require('./routes/index');
 var post = require('./routes/post');
@@ -45,11 +45,16 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+// Enviroment
+var enviroment = process.env.ENVIROMENT || 'development';
+
+var constantsEnv = env[enviroment];
+
 // Mysql DB connection
 var conexionDB = mysql.createConnection({
-  host: dbConstants.host,
-  user: dbConstants.user,
-  password: dbConstants.password
+  host: constantsEnv.DBHOST,
+  user: constantsEnv.DBUSER,
+  password: constantsEnv.DBPASSWORD
 });
 
 conexionDB.connect(function(err) {
