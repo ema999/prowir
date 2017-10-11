@@ -1,5 +1,5 @@
-# config directory
-server/config
+# config
+env.json
 
 # compiled output
 /dist

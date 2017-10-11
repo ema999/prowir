@@ -8,7 +8,7 @@ var mysql = require('mysql');
 var env = require('./config/env.json');
 
 var index = require('./routes/index');
-var post = require('./routes/post');
+var api = require('./api/routes/user');
 
 var app = express();
 
@@ -25,7 +25,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/../client/dist/')));
 
 app.use('/', index);
-app.use('/post', post);
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
