@@ -25,7 +25,7 @@ app.use(cookieParser());
 
 app.use('/', index);
 app.use('/api', api);
-app.use('/backoffice', express.static(path.join(__dirname, '/backoffice')));
+app.use('/backoffice/', express.static(path.join(__dirname, '/backoffice')));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
