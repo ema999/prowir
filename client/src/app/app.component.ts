@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
+import { FuseSplashScreenService } from './core/services/splash-screen.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector   : 'fuse-root',
+    templateUrl: './app.component.html',
+    styleUrls  : ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'app';
+export class AppComponent
+{
+    constructor(private fuseSplashScreen: FuseSplashScreenService)
+    {
+    }
 }

@@ -1,6 +1,9 @@
 # config
 env.json
 
+#client build
+server/public/backoffice/*
+
 ### Node ###
 # Logs
 logs
