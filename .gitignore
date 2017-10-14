@@ -2,7 +2,7 @@
 env.json
 
 #client build
-server/public/backoffice/*
+server/backoffice/*
 
 ### Node ###
 # Logs
