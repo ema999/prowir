@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "ENVIROMENT=development node ./bin/www",
+    "dev": "ENVIROMENT=development nodemon ./bin/www",
     "prod": "ENVIROMENT=production node ./bin/www",
     "stage": "ENVIROMENT=staging node ./bin/www"
   },
@@ -18,5 +18,8 @@
     "mysql": "^2.15.0",
     "nodemon": "^1.11.0",
     "serve-favicon": "~2.4.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
   }
 }
