@@ -22,10 +22,14 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-
+app.use(express.static(path.join(__dirname, 'backoffice')));
 app.use('/', index);
 app.use('/api', api);
-app.use('/backoffice/', express.static(path.join(__dirname, '/backoffice')));
+
+// Backoffice Routing
+app.use('/backoffice', express.static(path.join(__dirname, '/backoffice')));
+app.use('/assets', express.static(path.join(__dirname, '/backoffice')));
+app.use('/backoffice/*', express.static(path.join(__dirname, '/backoffice')));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
