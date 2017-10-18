@@ -1,14 +1,25 @@
 var express = require('express');
 var router = express.Router();
+var UserController = require('../../controllers/userController');
 
 var routes = {
-  getUser : '/user'
+  getUser : '/',
+  login   : '/login'
 }
 
-/* GET. */
-router.get(routes.getUser, function(req, res, next) {
+router.get(routes.getUser, function(req, res) {
 
   res.status(200).jsonp({hola: 'hola'});
+
+});
+
+router.post(routes.login, function(req, res) {
+
+  UserController.login(req.body.username, req.body.password, function(err, data){
+    if(err) return res.status(500).jsonp(err);
+
+    res.status(200).jsonp(data);
+  })
 
 });
 

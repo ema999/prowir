@@ -8,7 +8,7 @@ var mysql = require('mysql');
 var env = require('./config/env.json');
 
 var index = require('./routes/index');
-var api = require('./api/routes/user');
+var apiUserRouter = require('./api/routes/user');
 
 var app = express();
 
@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'backoffice')));
 app.use('/', index);
-app.use('/api', api);
+app.use('/api/user', apiUserRouter);
 
 // Backoffice Routing
 app.use('/backoffice', express.static(path.join(__dirname, '/backoffice')));
