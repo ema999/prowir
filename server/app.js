@@ -54,10 +54,11 @@ var enviroment = process.env.ENVIROMENT || 'development';
 var constantsEnv = env[enviroment];
 
 // Mysql DB connection
-var conexionDB = mysql.createConnection({
+conexionDB = mysql.createConnection({
   host: constantsEnv.DBHOST,
   user: constantsEnv.DBUSER,
-  password: constantsEnv.DBPASSWORD
+  password: constantsEnv.DBPASSWORD,
+  database: constantsEnv.DBNAME
 });
 
 conexionDB.connect(function(err) {

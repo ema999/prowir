@@ -15,7 +15,7 @@ router.get(routes.getUser, function(req, res) {
 
 router.post(routes.login, function(req, res) {
 
-  UserController.login(req.body.username, req.body.password, function(err, data){
+  UserController.login(req.body.email, req.body.password, function(err, data){
     if(err) return res.status(500).jsonp(err);
 
     res.status(200).jsonp(data);
