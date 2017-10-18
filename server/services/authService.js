@@ -1,11 +1,14 @@
-var jwt = require('jwt-simple');
+const jwt = require('jwt-simple');
+const moment = require('moment');
 const bcrypt = require('bcrypt');
 
 var AuthService = function(){
 
+  this.secret = 'fe1a32ffon3if31915a379f3be5394b64dasdasd14794932';
+
   AuthService.prototype.checkCredentials = function (email, password, callback) {
     var that = this;
-    var sql = 'select email, password from users where email ="'+email+'"';
+    var sql = 'select email, password, id, first_name, last_name from users where email ="'+email+'"';
 
     conexionDB.query(sql, function (err, result) {
       if (err) throw err;
@@ -16,7 +19,7 @@ var AuthService = function(){
 
       that.compareHash(result[0].password, password, function(err, res){
         if (!res) return callback({error: 'Usuario o Clave incorrecta'});
-        callback(null, res)
+        callback(null, result[0])
       });
 
       return true;
@@ -36,6 +39,29 @@ var AuthService = function(){
       if (err) return callback(err)
       callback(null, hash)
     });
+  }
+
+  AuthService.prototype.generateToken = function (user, callback) {
+    var payload = { email: user.email, id: user.id, first_name: user.first_name, last_name: user.last_name };
+    var expires = moment().add(20, 'hours').unix();
+
+    var token = jwt.encode({
+      iat: moment().unix(),
+      exp: expires,
+      payload: payload
+    }, this.secret);
+
+    if (!token) return callback({error: 'Error al generar el token'});
+    callback(null, token);
+  }
+
+  AuthService.prototype.checkToken = function (token, callback) {
+    try {
+      if (jwt.decode(token, this.secret)) return callback(null, true);
+    }
+    catch(err) {
+      return callback({error: 'Invalid token'});
+    }
   }
 
 }

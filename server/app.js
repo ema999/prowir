@@ -8,7 +8,7 @@ var mysql = require('mysql');
 var env = require('./config/env.json');
 
 var index = require('./routes/index');
-var apiUserRouter = require('./api/routes/user');
+var apiUserRouter = require('./api/entities/users/routes/userRouter');
 
 var app = express();
 

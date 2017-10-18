@@ -1,13 +1,16 @@
 var express = require('express');
 var router = express.Router();
-var UserController = require('../../controllers/userController');
+var UserController = require('../controllers/userController');
+var AuthMiddleware = require('../../../middleware/authMiddleware');
 
 var routes = {
   getUser : '/',
   login   : '/login'
 }
 
-router.get(routes.getUser, function(req, res) {
+var authMiddleware = new AuthMiddleware();
+
+router.get(routes.getUser, authMiddleware.isLogged, function(req, res) {
 
   res.status(200).jsonp({hola: 'hola'});
 
