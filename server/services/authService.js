@@ -1,6 +1,7 @@
 const jwt = require('jwt-simple');
 const moment = require('moment');
 const bcrypt = require('bcrypt');
+const customError = require('../class/customError.js');
 
 var AuthService = function(){
 
@@ -15,10 +16,10 @@ var AuthService = function(){
 
       var result = JSON.parse(JSON.stringify(result));
 
-      if (!result[0]) return callback({error: 'Usuario o Clave incorrecta'});
+      if (!result[0]) return callback(new customError('loginFailed'));
 
       that.compareHash(result[0].password, password, function(err, res){
-        if (!res) return callback({error: 'Usuario o Clave incorrecta'});
+        if (!res) return callback(new customError('loginFailed'));
         callback(null, result[0])
       });
 
@@ -51,7 +52,7 @@ var AuthService = function(){
       payload: payload
     }, this.secret);
 
-    if (!token) return callback({error: 'Error al generar el token'});
+    if (!token) return callback(new customError('tokenGeneratorFailed'));
     callback(null, token);
   }
 
@@ -60,7 +61,7 @@ var AuthService = function(){
       if (jwt.decode(token, this.secret)) return callback(null, true);
     }
     catch(err) {
-      return callback({error: 'Invalid token'});
+      return callback(new customError('invalidToken'));
     }
   }
 
