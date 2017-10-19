@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var mysql = require('mysql');
 var env = require('./config/env.json');
 
+// Routers
 var index = require('./routes/index');
 var apiUserRouter = require('./api/entities/users/routes/userRouter');
 
