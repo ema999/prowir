@@ -12,6 +12,7 @@ import { FuseSplashScreenService } from './core/services/splash-screen.service';
 import { FuseConfigService } from './core/services/config.service';
 import { FuseNavigationService } from './core/components/navigation/navigation.service';
 import { FuseSampleModule } from './main/content/sample/sample.module';
+import { PagesModule } from './main/content/pages/pages.module';
 
 const appRoutes: Routes = [
     {
@@ -32,7 +33,8 @@ const appRoutes: Routes = [
         RouterModule.forRoot(appRoutes),
         SharedModule,
         FuseMainModule,
-        FuseSampleModule
+        FuseSampleModule,
+        PagesModule
     ],
     providers   : [
         FuseSplashScreenService,
