@@ -8,7 +8,9 @@
     "dev": "ng serve",
     "start-hmr": "ng serve --hmr -e=hmr -sm=false",
     "start-hmr-sourcemaps": "ng serve --hmr -e=hmr",
-    "build": "node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng build --prod --base-href /backoffice/",
+    "build-development": "node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng build --dev --base-href /backoffice/ -output-path=../server/backoffice",
+    "build-production": "node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng build --prod --base-href /backoffice/ -output-path=../server/backoffice",
+    "build-staging": "node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng build --st --base-href /backoffice/ -output-path=../server/backoffice",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

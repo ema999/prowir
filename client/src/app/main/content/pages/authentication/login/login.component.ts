@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FuseConfigService } from '../../../../../core/services/config.service';
 import { fuseAnimations } from '../../../../../core/animations';
+import { AuthService } from '../../../../../core/services/auth.service';
 
 @Component({
     selector   : 'fuse-login',
@@ -17,7 +18,8 @@ export class FuseLoginComponent implements OnInit
 
     constructor(
         private fuseConfig: FuseConfigService,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private authService: AuthService
     )
     {
         this.fuseConfig.setSettings({
@@ -66,5 +68,12 @@ export class FuseLoginComponent implements OnInit
                 this.loginFormErrors[field] = control.errors;
             }
         }
+    }
+
+    login()
+    {
+        let email = this.loginForm.controls.email.value;
+        let password = this.loginForm.controls.password.value;
+        this.authService.login({email, password});
     }
 }

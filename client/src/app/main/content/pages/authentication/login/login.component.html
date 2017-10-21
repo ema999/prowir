@@ -41,7 +41,7 @@
                 </div>
 
                 <button md-raised-button color="accent" class="submit-button" aria-label="INGRESAR"
-                        [disabled]="loginForm.invalid">
+                        [disabled]="loginForm.invalid" (click)="login()">
                     INGRESAR
                 </button>
 

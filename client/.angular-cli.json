@@ -6,7 +6,7 @@
     "apps": [
         {
             "root": "src",
-            "outDir": "../server/backoffice",
+            "outDir": "dist",
             "assets": [
                 "assets",
                 "favicon.ico"
@@ -26,6 +26,7 @@
             "environments": {
                 "dev": "environments/environment.ts",
                 "hmr": "environments/environment.hmr.ts",
+                "st": "environments/environment.st.ts",
                 "prod": "environments/environment.prod.ts"
             }
         }

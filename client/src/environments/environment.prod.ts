@@ -1,4 +1,6 @@
 export const environment = {
     production: true,
-    hmr: false
+    hmr: false,
+    staging: false,
+    baseUrl: 'http://faaaar.e-gate.com.ar'
 };
