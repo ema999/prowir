@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'backoffice')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/api/user', apiUserRouter);

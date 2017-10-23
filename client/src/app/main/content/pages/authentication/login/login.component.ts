@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FuseConfigService } from '../../../../../core/services/config.service';
 import { fuseAnimations } from '../../../../../core/animations';
@@ -15,11 +15,13 @@ export class FuseLoginComponent implements OnInit
 {
     loginForm: FormGroup;
     loginFormErrors: any;
+    errorCredentials: any = false;
 
     constructor(
         private fuseConfig: FuseConfigService,
         private formBuilder: FormBuilder,
-        private authService: AuthService
+        private authService: AuthService,
+        private router: Router
     )
     {
         this.fuseConfig.setSettings({
@@ -74,6 +76,13 @@ export class FuseLoginComponent implements OnInit
     {
         let email = this.loginForm.controls.email.value;
         let password = this.loginForm.controls.password.value;
-        this.authService.login({email, password});
+
+        this.authService.login({email, password}, (err, data) => {
+
+          if(err) {this.errorCredentials = err.message; return;}
+          
+          if(data.token) return this.router.navigateByUrl('');
+
+        });
     }
 }

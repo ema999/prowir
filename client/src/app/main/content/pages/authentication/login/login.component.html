@@ -40,6 +40,10 @@
                     </a>
                 </div>
 
+                <md-error *ngIf="errorCredentials">
+                    {{errorCredentials}}
+                </md-error>
+
                 <button md-raised-button color="accent" class="submit-button" aria-label="INGRESAR"
                         [disabled]="loginForm.invalid" (click)="login()">
                     INGRESAR
