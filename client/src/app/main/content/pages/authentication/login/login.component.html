@@ -44,8 +44,12 @@
                     {{errorCredentials}}
                 </md-error>
 
+                <span class="fuse-search-bar-loader" fxLayout="row" fxLayoutAlign="center center">
+                  <md-progress-spinner color="md-accent" mode="indeterminate" *ngIf="isLoading"></md-progress-spinner>
+                </span>
+
                 <button md-raised-button color="accent" class="submit-button" aria-label="INGRESAR"
-                        [disabled]="loginForm.invalid" (click)="login()">
+                        [disabled]="loginForm.invalid" (click)="login()" *ngIf="!isLoading">
                     INGRESAR
                 </button>
 
