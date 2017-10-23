@@ -1,0 +1,62 @@
+<div id="login" fxLayout="column" fusePerfectScrollbar>
+
+    <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+
+        <div id="login-form" *fuseIfOnDom [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+
+            <div class="logo">
+                <img src="assets/images/logos/faaaar.png">
+            </div>
+
+            <div class="title">INGRESA CON TU CUENTA</div>
+
+            <form name="loginForm" [formGroup]="loginForm" novalidate>
+
+                <md-input-container>
+                    <input mdInput placeholder="Email" formControlName="email">
+                    <md-error *ngIf="loginFormErrors.email.required">
+                        El email es requerido
+                    </md-error>
+                    <md-error *ngIf="!loginFormErrors.email.required && loginFormErrors.email.email">
+                        Por favor ingrese un email válido
+                    </md-error>
+                </md-input-container>
+
+                <md-input-container>
+                    <input mdInput placeholder="Password" formControlName="password" type="password">
+                    <md-error *ngIf="loginFormErrors.password.required">
+                        Ingrese su contraseña
+                    </md-error>
+                </md-input-container>
+
+                <div class="remember-forgot-password" fxLayout="row" fxLayout.xs="column"
+                     fxLayoutAlign="space-between center">
+                    <md-checkbox class="remember-me" aria-label="Recordarme">
+                        Recodarme
+                    </md-checkbox>
+
+                    <a class="forgot-password" [routerLink]="'/pages/auth/forgot-password'">
+                        ¿Olvidó su Contraseña?
+                    </a>
+                </div>
+
+                <md-error *ngIf="errorCredentials">
+                    {{errorCredentials}}
+                </md-error>
+
+                <span class="fuse-search-bar-loader" fxLayout="row" fxLayoutAlign="center center">
+                  <md-progress-spinner color="md-accent" mode="indeterminate" *ngIf="isLoading"></md-progress-spinner>
+                </span>
+
+                <button md-raised-button color="accent" class="submit-button" aria-label="INGRESAR"
+                        [disabled]="loginForm.invalid" (click)="login()" *ngIf="!isLoading">
+                    INGRESAR
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

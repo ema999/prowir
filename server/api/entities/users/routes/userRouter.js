@@ -19,7 +19,7 @@ router.get(routes.getUser, authMiddleware.isLogged, function(req, res) {
 router.post(routes.login, function(req, res) {
 
   UserController.login(req.body.email, req.body.password, function(err, data){
-    if(err) return res.status(500).jsonp(err);
+    if(err) return res.status(err.httpStatusCode).jsonp(err);
 
     res.status(200).jsonp(data);
   })

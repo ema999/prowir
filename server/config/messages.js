@@ -4,35 +4,35 @@ module.exports = {
 
 	unknownError : {
 		httpStatus : 500,
-		description : "Something went wrong."
+		description : "Algo a salido mal."
 	},
 
 	/* -------------------- HTTP -------------------- */
 
 	notFound : {
 		httpStatus : 404,
-		description : "Page not found."
+		description : "Página no encontrada."
 	},
 	forbidden : {
 		httpStatus : 401,
-		description : "You don't have enough permissions to do that."
+		description : "No tienes los permisos suficientes."
 	},
 
   /* -------------------- Users -------------------- */
 
   loginFailed : {
     httpStatus : 401,
-		description : "User or password incorrect."
+		description : "Usuario o Password incorrectos."
   },
 
   tokenGeneratorFailed : {
     httpStatus : 500,
-		description : "Token generator failed."
+		description : "Error al generar el token."
   },
 
   invalidToken : {
     httpStatus : 401,
-		description : "Invalid Token."
+		description : "Token inválido."
   }
 
 };
