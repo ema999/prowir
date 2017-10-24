@@ -7,6 +7,8 @@ var bodyParser = require('body-parser');
 var cors = require('cors')
 var mysql = require('mysql');
 var env = require('./config/env.json');
+var expressValidation = require('express-validation');
+var CustomError = require('./class/customError');
 
 // Routers
 var index = require('./routes/index');
@@ -44,6 +46,14 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
+
+  // specific for validation errors
+  if (err instanceof expressValidation.ValidationError) {
+    var errorCustom = new CustomError('invalidParams');console.log(errorCustom)
+    errorCustom.errors = err.errors;
+    return res.status(errorCustom.httpStatusCode).json(errorCustom);
+  }
+
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

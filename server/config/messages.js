@@ -17,6 +17,10 @@ module.exports = {
 		httpStatus : 401,
 		description : "No tienes los permisos suficientes."
 	},
+	invalidParams : {
+    httpStatus : 400,
+		description : "Error en los parametros."
+  },
 
   /* -------------------- Users -------------------- */
 
