@@ -31,7 +31,9 @@
                     class="user-button">
                 <div fxLayout="row" fxLayoutAlign="center center">
                     <img class="avatar" src="assets/images/avatars/profile.jpg">
-                    <span class="username mr-12" fxHide fxShow.gt-sm>John Doe</span>
+                    <span class="username mr-12" fxHide fxShow.gt-sm>
+                      {{ currentAccount.first_name }}
+                    </span>
                     <md-icon class="s-16" fxHide.xs>keyboard_arrow_down</md-icon>
                 </div>
             </button>
@@ -40,17 +42,12 @@
 
                 <button md-menu-item>
                     <md-icon>account_circle</md-icon>
-                    <span>My Profile</span>
-                </button>
-
-                <button md-menu-item class="">
-                    <md-icon>mail</md-icon>
-                    <span>Inbox</span>
+                    <span>Mi Perfil</span>
                 </button>
 
                 <button md-menu-item class="">
                     <md-icon>exit_to_app</md-icon>
-                    <span>Logout</span>
+                    <span>Salir</span>
                 </button>
 
             </md-menu>
