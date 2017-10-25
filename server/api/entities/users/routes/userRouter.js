@@ -7,7 +7,8 @@ var userValidation = require('../validations/user.js');
 
 var routes = {
   getUser : '/',
-  login   : '/login'
+  login   : '/login',
+  getCurrentAccount: '/current'
 }
 
 var authMiddleware = new AuthMiddleware();
@@ -15,6 +16,16 @@ var authMiddleware = new AuthMiddleware();
 router.get(routes.getUser, authMiddleware.isLogged, function(req, res) {
 
   res.status(200).jsonp({hola: 'hola'});
+
+});
+
+router.get(routes.getCurrentAccount, authMiddleware.isLogged, function(req, res) {
+
+  UserController.getCurrentAccount(req.get("authorization"), function(err, data){
+    if(err) return res.status(err.httpStatusCode).jsonp(err);
+
+    res.status(200).jsonp(data);
+  })
 
 });
 

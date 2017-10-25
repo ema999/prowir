@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
-import { FuseConfigService } from '../../core/services/config.service';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
     selector   : 'fuse-toolbar',
@@ -8,17 +8,18 @@ import { FuseConfigService } from '../../core/services/config.service';
     styleUrls  : ['./toolbar.component.scss']
 })
 
-export class FuseToolbarComponent
+export class FuseToolbarComponent implements OnInit
 {
     userStatusOptions: any[];
     languages: any;
     selectedLanguage: any;
     showSpinner: boolean;
     horizontalNav: boolean;
+    currentAccount: any = {};
 
     constructor(
         private router: Router,
-        private fuseConfig: FuseConfigService
+        private userService: UserService
     )
     {
         this.userStatusOptions = [
@@ -81,10 +82,17 @@ export class FuseToolbarComponent
                 }
             });
 
-        this.fuseConfig.onSettingsChanged.subscribe((settings) => {
-            this.horizontalNav = settings.layout.navigation === 'top';
-        });
+    }
 
+    ngOnInit() {
+        this.userService.getCurrentAccount()
+          .subscribe(current => {
+            this.currentAccount = JSON.parse(current._body);
+          })
+    }
+
+    ngOnDestroy() {
+        this.currentAccount.unsubscribe();
     }
 
     search(value)

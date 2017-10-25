@@ -1,4 +1,5 @@
 var AuthService = require('../../../../services/authService');
+var UserService = require('../../../../services/userService');
 
 var UserController = {};
 
@@ -13,6 +14,16 @@ UserController.login = function(email, password, callback){
       callback(null, {token: token});
     })
 
+  })
+
+}
+
+UserController.getCurrentAccount = function(token, callback){
+  var userService = new UserService();
+
+  userService.getUserByToken(token, function(err,data){
+    if (err) return callback(err)
+    callback(null, data);
   })
 
 }

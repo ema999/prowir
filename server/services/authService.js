@@ -65,6 +65,16 @@ var AuthService = function(){
     }
   }
 
+  AuthService.prototype.decodeToken = function (token, callback) {
+    try {
+      var payload = jwt.decode(token.split(' ')[1], this.secret);
+      if (payload) return callback(null, payload);
+    }
+    catch(err) {
+      return callback(new customError('invalidToken'));
+    }
+  }
+
 }
 
 module.exports = AuthService;
