@@ -37,6 +37,11 @@ module.exports = {
   invalidToken : {
     httpStatus : 401,
 		description : "Token inválido."
+  },
+
+	userDontExist : {
+    httpStatus : 404,
+		description : "El usuario no existe."
   }
 
 };
