@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { UserService } from '../../core/services/user.service';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
     selector   : 'fuse-toolbar',
@@ -19,7 +20,8 @@ export class FuseToolbarComponent implements OnInit
 
     constructor(
         private router: Router,
-        private userService: UserService
+        private userService: UserService,
+        private authService: AuthService
     )
     {
         this.userStatusOptions = [
@@ -87,17 +89,23 @@ export class FuseToolbarComponent implements OnInit
     ngOnInit() {
         this.userService.getCurrentAccount()
           .subscribe(current => {
-            this.currentAccount = JSON.parse(current._body);
+            this.currentAccount = current;
           })
     }
 
     ngOnDestroy() {
-        this.currentAccount.unsubscribe();
+        if(this.currentAccount.length) this.currentAccount.unsubscribe();
     }
 
     search(value)
     {
         // Do your search here...
         console.log(value);
+    }
+
+    logout()
+    {
+        this.authService.logout();
+        this.router.navigateByUrl('pages/auth/login');
     }
 }

@@ -24,12 +24,15 @@ export class AuthService
           }
         },
         error => {
-          callback(JSON.parse(error._body), null); 
+          callback(JSON.parse(error._body), null);
           console.log(error);
         }
       );
     }
 
+    logout(): void {
+      localStorage.removeItem('token');
+    }
 
     loggedIn() {
       return tokenNotExpired();
