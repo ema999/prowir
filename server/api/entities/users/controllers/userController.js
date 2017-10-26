@@ -28,4 +28,24 @@ UserController.getCurrentAccount = function(token, callback){
 
 }
 
+UserController.editUser = function(id, data, callback){
+  var userService = new UserService();
+
+  userService.editUser(id, data, function(err, userEdited){
+    if (err) return callback(err)
+    callback(null, userEdited);
+  })
+
+}
+
+UserController.getUser = function(id, callback){
+  var userService = new UserService();
+
+  userService.getUser(id, function(err, user){
+    if (err) return callback(err)
+    callback(null, user);
+  })
+
+}
+
 module.exports = UserController;
