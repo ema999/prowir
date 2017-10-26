@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http, RequestOptions, ConnectionBackend } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
@@ -30,6 +30,14 @@ const appRoutes: Routes = [
     }
 ];
 
+
+
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+  return new AuthHttp(new AuthConfig({
+    tokenGetter: (() => localStorage.getItem('token'))
+  }), http, options);
+}
+
 @NgModule({
     declarations: [
         AppComponent
@@ -52,15 +60,11 @@ const appRoutes: Routes = [
         AuthService,
         AuthGuard,
         UserService,
-        AuthHttp,
-        provideAuth({
-            headerName: 'Authorization',
-            headerPrefix: 'bearer',
-            tokenName: 'token',
-            tokenGetter: (() => localStorage.getItem('token')),
-            globalHeaders: [{ 'Content-Type': 'application/json' }],
-            noJwtError: true
-        })
+        {
+          provide: AuthHttp,
+          useFactory: authHttpServiceFactory,
+          deps: [Http, RequestOptions]
+        }
     ],
     bootstrap   : [
         AppComponent
