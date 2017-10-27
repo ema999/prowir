@@ -51,6 +51,8 @@ var UserService = function(){
 
   UserService.prototype.getUser = function (id, callback) {
 
+    if ( isNaN(parseInt(id)) ) return callback(new customError('invalidParams'));
+
     var sql = 'select email, id, first_name, last_name from users where id ='+id;
 
     conexionDB.query(sql, function (err, result) {

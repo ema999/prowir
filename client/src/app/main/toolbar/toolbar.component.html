@@ -40,7 +40,7 @@
 
             <md-menu #userMenu="mdMenu">
 
-                <button md-menu-item>
+                <button md-menu-item (click)="toMyAccount()">
                     <md-icon>account_circle</md-icon>
                     <span>Mi Perfil</span>
                 </button>
@@ -54,7 +54,7 @@
 
             <div class="toolbar-separator"></div>
 
-            <fuse-search-bar (onInput)="search($event)"></fuse-search-bar>
+            <!--<fuse-search-bar (onInput)="search($event)"></fuse-search-bar>
 
             <div class="toolbar-separator"></div>
 
@@ -83,7 +83,7 @@
                     fuseMdSidenavToggler="quick-panel"
                     aria-label="Toggle quick panel">
                 <md-icon class="icon">format_list_bulleted</md-icon>
-            </button>
+            </button>-->
 
         </div>
     </div>

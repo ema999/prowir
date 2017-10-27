@@ -107,5 +107,10 @@ export class FuseToolbarComponent implements OnInit
     {
         this.authService.logout();
         this.router.navigateByUrl('pages/auth/login');
+
+    }
+
+    toMyAccount(){
+        this.router.navigateByUrl('pages/profile/'+this.currentAccount.id);
     }
 }

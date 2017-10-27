@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate
     }
 
     resolve() {
-      if(this.auth.loggedIn()) {
+      if(this.auth.loggedIn() && window.location.pathname == '/pages/auth/login') {
         this.router.navigateByUrl('');
       }
     }
