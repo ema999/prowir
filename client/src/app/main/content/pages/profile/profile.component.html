@@ -6,7 +6,7 @@
 
         <div class="user-info" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
              fxLayoutAlign.gt-sm="start center">
-            <img class="profile-image avatar huge" src="assets/images/avatars/katherine.jpg"
+            <img class="profile-image avatar huge" src="assets/images/avatars/profile.jpg"
                  *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
             <div class="name" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">{{ about.first_name + ' ' + about.last_name }}</div>
         </div>
@@ -24,7 +24,7 @@
 
         <md-tab-group dynamicHeight="true">
 
-            <md-tab label="About">
+            <md-tab label="Información">
                 <fuse-profile-about></fuse-profile-about>
             </md-tab>
 
