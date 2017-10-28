@@ -10,7 +10,8 @@ var routes = {
   getUser : '/:id',
   login   : '/login',
   getCurrentAccount: '/current',
-  editUser: '/:id'
+  editUser: '/:id',
+  search: '/search'
 }
 
 var authMiddleware = new AuthMiddleware();
@@ -57,6 +58,16 @@ router.get(routes.getUser, authMiddleware.isLogged, function(req, res) {
     if(err) return res.status(err.httpStatusCode).jsonp(err);
 
     res.status(200).jsonp(data);
+  })
+
+});
+
+router.post(routes.search, authMiddleware.isLogged, Validate(userValidation.search), function(req, res) {
+
+  UserController.search(req.body, function(err, users){
+    if(err) return res.status(err.httpStatusCode).jsonp(err);
+
+    res.status(200).jsonp(users);
   })
 
 });

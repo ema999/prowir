@@ -6,7 +6,7 @@ export class NavigationModel
     {
         this.model = [
             {
-                'title': 'Applications',
+                'title': 'Sistema',
                 'type' : 'group',
                 'children': [
                     {
@@ -19,6 +19,12 @@ export class NavigationModel
                             'bg'   : '#F44336',
                             'fg'   : '#FFFFFF'
                         }
+                    },
+                    {
+                        'title': 'Usuarios',
+                        'type' : 'item',
+                        'icon' : 'person',
+                        'url'  : '/users'
                     }
                 ]
             }

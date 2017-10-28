@@ -1,0 +1,100 @@
+<div class="page-layout carded fullwidth" fusePerfectScrollbar>
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg md-accent-bg"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- CONTENT HEADER -->
+        <div class="header p-sm-24" fxLayout="column" fxLayoutAlign="start start"
+             fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+
+                <div class="logo" fxLayout="row" fxLayoutAlign="start center">
+                    <md-icon class="logo-icon mr-16 white-fg" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">person</md-icon>
+                    <span class="logo-text h1 white-fg" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Usuarios</span>
+                </div>
+
+            </div>
+            <!-- / APP TITLE -->
+
+            <!-- SEARCH -->
+            <div class="mt-16 ml-8 m-sm-0" fxLayout="row" fxLayoutAlign="start center">
+
+            </div>
+            <!-- / SEARCH -->
+
+        </div>
+        <!-- / CONTENT HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content md-white-bg">
+
+            <!-- CONTENT TOOLBAR -->
+            <div class="toolbar px-24 py-8">
+                <span>Content toolbar</span>
+            </div>
+            <!-- / CONTENT TOOLBAR -->
+
+            <!-- CONTENT -->
+
+            <div class="content">
+
+              <ngx-datatable
+                  class="material"
+                  [rows]="users"
+                  [loadingIndicator]="loading"
+                  [columnMode]="'force'"
+                  [headerHeight]="48"
+                  [footerHeight]="56"
+                  [rowHeight]="'auto'"
+                  [scrollbarH]="true"
+                  [reorderable]="reorderable"
+                  [selectionType]="'checkbox'"
+                  [externalPaging]="true"
+                  [count]="usersTotal"
+                  [offset]="page"
+                  (page)='setPage($event)'
+                  [limit]="limit">
+
+                  <ngx-datatable-column [width]="48"
+                                        [canAutoResize]="false"
+                                        [sortable]="false">
+                      <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected"
+                                   let-selectFn="selectFn">
+                          <md-checkbox [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)"></md-checkbox>
+                      </ng-template>
+
+                      <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected"
+                                   let-onCheckboxChangeFn="onCheckboxChangeFn">
+                          <md-checkbox [checked]="isSelected" (change)="onCheckboxChangeFn($event)"></md-checkbox>
+                      </ng-template>
+                  </ngx-datatable-column>
+
+                  <ngx-datatable-column name="ID" prop="id">
+                  </ngx-datatable-column>
+
+                  <ngx-datatable-column name="Nombre" prop="first_name">
+                  </ngx-datatable-column>
+
+                  <ngx-datatable-column name="Apellido" prop="last_name">
+                  </ngx-datatable-column>
+
+                  <ngx-datatable-column name="E-mail" prop="email">
+                  </ngx-datatable-column>
+              </ngx-datatable>
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

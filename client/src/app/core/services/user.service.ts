@@ -11,6 +11,12 @@ export class UserService
     private currentAccountSource = new Subject<any>();
     currentAccount$ = this.currentAccountSource.asObservable();
 
+    // List of users
+    private userListSource = new Subject<any>();
+    userList$ = this.userListSource.asObservable();
+    private userListTotalSource = new Subject<any>();
+    userListTotal$ = this.userListTotalSource.asObservable();
+
     constructor(private authHttp: AuthHttp)
     {
 
@@ -29,7 +35,7 @@ export class UserService
     }
     getCurrentAccountObservable() { return this.currentAccount$; }
 
-    getAccount(id , callback) {
+    getAccount(id, callback) {
       this.authHttp.get(environment.baseUrl + '/api/user/'+ id)
         .subscribe(
           data => {
@@ -37,6 +43,20 @@ export class UserService
             return callback(null, user);
           },
           err => callback(err)
+        );
+    }
+
+    getUserList(options, callback) {
+      this.authHttp.post(environment.baseUrl + '/api/user/search', options)
+        .subscribe(
+          data => {
+            let dataParsed = data.json();
+            let users = dataParsed.users.map((user)=> new UserModel(user) );
+            this.userListSource.next(users);
+            this.userListTotalSource.next(dataParsed.aboutTotal);
+            return callback();
+          },
+          err => console.log(err)
         );
     }
 

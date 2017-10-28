@@ -14,6 +14,7 @@ import { FuseNavigationService } from './core/components/navigation/navigation.s
 import { AuthService } from './core/services/auth.service';
 import { UserService } from './core/services/user.service';
 import { FuseSampleModule } from './main/content/sample/sample.module';
+import { UsersModule } from './main/content/users/users.module';
 import { PagesModule } from './main/content/pages/pages.module';
 import { AuthGuard } from './core/services/authguard.service';
 import { AuthHttp, AuthConfig, AUTH_PROVIDERS, provideAuth } from 'angular2-jwt';
@@ -51,6 +52,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
         SharedModule,
         FuseMainModule,
         FuseSampleModule,
+        UsersModule,
         PagesModule
     ],
     providers   : [
