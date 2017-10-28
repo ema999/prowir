@@ -9,7 +9,7 @@ var AuthService = function(){
 
   AuthService.prototype.checkCredentials = function (email, password, callback) {
     var that = this;
-    var sql = 'select email, password, id, first_name, last_name from users where email ="'+email+'"';
+    var sql = 'select email, password, id, first_name, last_name, role from users where email ="'+email+'"';
 
     conexionDB.query(sql, function (err, result) {
       if (err) throw err;
@@ -43,7 +43,12 @@ var AuthService = function(){
   }
 
   AuthService.prototype.generateToken = function (user, callback) {
-    var payload = { email: user.email, id: user.id, first_name: user.first_name, last_name: user.last_name };
+    var payload = { email: user.email,
+      id: user.id,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      role: user.role
+    };
     var expires = moment().add(30, 'day').unix();
 
     var token = jwt.encode({

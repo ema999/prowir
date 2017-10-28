@@ -4,6 +4,7 @@ var UserController = require('../controllers/userController');
 var AuthMiddleware = require('../../../middleware/authMiddleware');
 var Validate = require('express-validation');
 var userValidation = require('../validations/user.js');
+var PermissionService = require('../../../../services/permissionService.js');
 
 var routes = {
   getUsers : '/',
@@ -15,10 +16,16 @@ var routes = {
 }
 
 var authMiddleware = new AuthMiddleware();
+var permissionService = new PermissionService();
 
 router.get(routes.getUsers, authMiddleware.isLogged, function(req, res) {
 
-  res.status(200).jsonp({hola: 'hola'});
+  permissionService.hasPermission('getUsers', req.get("authorization"), function(err, result){
+    if(err) return res.status(err.httpStatusCode).jsonp(err);
+
+    res.status(200).jsonp({hola: 'hola'});
+
+  });
 
 });
 
