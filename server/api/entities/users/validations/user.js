@@ -15,6 +15,13 @@ module.exports = {
       first_name: Joi.string(),
       last_name: Joi.string(),
     }
+  },
+
+  search: {
+    body: {
+      limit: Joi.number().min(1).max(20),
+      page: Joi.number().min(0)
+    }
   }
 
 };

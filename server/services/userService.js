@@ -67,6 +67,46 @@ var UserService = function(){
 
   }
 
+  UserService.prototype.search = function (options, callback) {
+    if(!options.limit) options.limit = 20;
+    if(!options.page) options.page = 0;
+
+    var sql = 'select email, id, first_name, last_name from users';
+
+    // Pagination
+    var end = options.limit * (options.page);
+    if(options.limit) sql += ' LIMIT '+ options.limit +' OFFSET '+end ;
+
+    this.getUsersTotal(function(err, total){
+
+      conexionDB.query(sql, function (err, result) {
+        if (err) throw err;
+
+        var result = JSON.parse(JSON.stringify(result));
+
+        if (!result[0]) return callback(null, {});
+
+        callback(null, {users: result, aboutTotal: total})
+      })
+
+    });
+
+  }
+
+  UserService.prototype.getUsersTotal = function (callback) {
+
+    var sql = 'select COUNT(id) AS total from users';
+
+    conexionDB.query(sql, function (err, result) {
+      if (err) throw err;
+
+      var result = JSON.parse(JSON.stringify(result));
+
+      callback(null, result[0].total)
+    })
+
+  }
+
 
 }
 

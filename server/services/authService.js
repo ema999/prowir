@@ -44,7 +44,7 @@ var AuthService = function(){
 
   AuthService.prototype.generateToken = function (user, callback) {
     var payload = { email: user.email, id: user.id, first_name: user.first_name, last_name: user.last_name };
-    var expires = moment().add(20, 'hours').unix();
+    var expires = moment().add(30, 'day').unix();
 
     var token = jwt.encode({
       iat: moment().unix(),

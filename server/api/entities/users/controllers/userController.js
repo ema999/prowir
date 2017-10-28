@@ -48,4 +48,14 @@ UserController.getUser = function(id, callback){
 
 }
 
+UserController.search = function(options, callback){
+  var userService = new UserService();
+
+  userService.search(options, function(err, users){
+    if (err) return callback(err)
+    callback(null, users);
+  })
+
+}
+
 module.exports = UserController;
