@@ -1,7 +1,16 @@
 module.exports = {
 
 	admin : {
-		getUsers: true
+		getUsers: true,
+		getCurrentAccount: true,
+		editUser: true,
+		getUser: true,
+		searchUsers: true
+	},
+
+
+	editor : {
+		
 	}
 
 };

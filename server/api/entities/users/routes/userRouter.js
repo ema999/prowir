@@ -31,11 +31,16 @@ router.get(routes.getUsers, authMiddleware.isLogged, function(req, res) {
 
 router.get(routes.getCurrentAccount, authMiddleware.isLogged, function(req, res) {
 
-  UserController.getCurrentAccount(req.get("authorization"), function(err, data){
+  permissionService.hasPermission('getCurrentAccount', req.get("authorization"), function(err, result){
     if(err) return res.status(err.httpStatusCode).jsonp(err);
 
-    res.status(200).jsonp(data);
-  })
+    UserController.getCurrentAccount(req.get("authorization"), function(err, data){
+      if(err) return res.status(err.httpStatusCode).jsonp(err);
+
+      res.status(200).jsonp(data);
+    })
+
+  });
 
 });
 
@@ -51,31 +56,46 @@ router.post(routes.login, Validate(userValidation.login), function(req, res) {
 
 router.put(routes.editUser, authMiddleware.isLogged, Validate(userValidation.edit), function(req, res) {
 
-  UserController.editUser(req.params.id, req.body, function(err, data){
+  permissionService.hasPermission('editUser', req.get("authorization"), function(err, result){
     if(err) return res.status(err.httpStatusCode).jsonp(err);
 
-    res.status(200).jsonp(data);
-  })
+    UserController.editUser(req.params.id, req.body, function(err, data){
+      if(err) return res.status(err.httpStatusCode).jsonp(err);
+
+      res.status(200).jsonp(data);
+    })
+
+  });
 
 });
 
 router.get(routes.getUser, authMiddleware.isLogged, function(req, res) {
 
-  UserController.getUser(req.params.id, function(err, data){
+  permissionService.hasPermission('getUser', req.get("authorization"), function(err, result){
     if(err) return res.status(err.httpStatusCode).jsonp(err);
 
-    res.status(200).jsonp(data);
-  })
+    UserController.getUser(req.params.id, function(err, data){
+      if(err) return res.status(err.httpStatusCode).jsonp(err);
+
+      res.status(200).jsonp(data);
+    })
+
+  });
 
 });
 
 router.post(routes.search, authMiddleware.isLogged, Validate(userValidation.search), function(req, res) {
 
-  UserController.search(req.body, function(err, users){
+  permissionService.hasPermission('searchUsers', req.get("authorization"), function(err, result){
     if(err) return res.status(err.httpStatusCode).jsonp(err);
 
-    res.status(200).jsonp(users);
-  })
+    UserController.search(req.body, function(err, users){
+      if(err) return res.status(err.httpStatusCode).jsonp(err);
+
+      res.status(200).jsonp(users);
+    })
+
+  });
 
 });
 
