@@ -5,12 +5,13 @@ module.exports = {
 		getCurrentAccount: true,
 		editUser: true,
 		getUser: true,
-		searchUsers: true
+		searchUsers: true,
+		deleteUsers: true
 	},
 
 
 	editor : {
-		
+
 	}
 
 };

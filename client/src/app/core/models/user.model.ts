@@ -4,11 +4,13 @@ export class UserModel {
     first_name;
     last_name;
     id;
+    role;
 
     constructor(data){
       this.email = data.email;
       this.first_name = data.first_name;
       this.last_name = data.last_name;
+      this.role = data.role;
       this.id = data.id;
     }
 

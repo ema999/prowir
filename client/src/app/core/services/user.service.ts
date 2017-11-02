@@ -60,4 +60,27 @@ export class UserService
         );
     }
 
+    deleteUsers(users, usersToRemove, callback) {
+      let usersParsed = usersToRemove.map(u => {return {id: u.id} });
+
+      this.authHttp.post(environment.baseUrl + '/api/user/delete', usersToRemove)
+        .subscribe(
+          data => {
+            let dataParsed = data.json();
+
+            let usersUp = users.filter(u => {
+              return !usersParsed.find(up => up.id == u.id)
+            }).map(u => {
+              delete u.$$index;
+              return u;
+            });
+
+            this.userListSource.next(usersUp);
+            this.userListTotalSource.next(dataParsed.total);
+            return callback(null, dataParsed);
+          },
+          err => callback(err)
+        );
+    }
+
 }

@@ -49,7 +49,7 @@ var AuthService = function(){
       last_name: user.last_name,
       role: user.role
     };
-    var expires = moment().add(30, 'day').unix();
+    var expires = moment().add(20, 'hours').unix();
 
     var token = jwt.encode({
       iat: moment().unix(),

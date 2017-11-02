@@ -22,6 +22,12 @@ module.exports = {
       limit: Joi.number().min(1).max(20),
       page: Joi.number().min(0)
     }
+  },
+
+  delete: {
+    body: {
+      users: Joi.array()
+    }
   }
 
 };

@@ -1,0 +1,7 @@
+<div id="toolbartable">
+  <ng-container *ngFor="let button of buttons">
+    <button md-icon-button (click)="runAction(button.action)" [disabled]="!isActive(button)">
+      <md-icon class="mat-24" [ngClass]="{disabled : !isActive(button)}">{{button.icon}}</md-icon>
+    </button>
+  </ng-container>
+</div>
