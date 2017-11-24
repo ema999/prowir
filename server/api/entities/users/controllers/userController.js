@@ -68,4 +68,14 @@ UserController.deleteUsers = function(users, callback){
 
 }
 
+UserController.addUser = function(user, callback){
+  var userService = new UserService();
+
+  userService.addUser(user, function(err, result){
+    if (err) return callback(err)
+    callback(null, result);
+  })
+
+}
+
 module.exports = UserController;

@@ -78,7 +78,7 @@ export class UsersScreenComponent implements OnInit
     }
 
     addUsers() {
-        console.log('Add User');
+        this.router.navigateByUrl('/users/add');
     }
 
     deleteUsers() {

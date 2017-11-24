@@ -31,10 +31,10 @@ var UserService = function(){
 
     if(Object.keys(userData).length === 0) return callback(null, {})
 
-    var sql = 'UPDATE users SET id = '+id+' ';
-    if (userData.first_name) sql += ', first_name = "'+ userData.first_name +'" ';
+    var sql = 'UPDATE users SET  ';
+    if (userData.first_name) sql += ' first_name = "'+ userData.first_name +'" ';
     if (userData.last_name) sql += ', last_name = "'+ userData.last_name +'" ';
-    if (userData.email) sql += ' email = "'+ userData.email +'" ';
+    if (userData.email) sql += ', email = "'+ userData.email +'" ';
     sql += ' WHERE id = ' + id;
 
     conexionDB.query(sql, function (err, result) {
@@ -129,6 +129,30 @@ var UserService = function(){
       });
 
     })
+
+  }
+
+  UserService.prototype.addUser = function (user, callback) {
+    that = this;
+
+    if (!user) return callback(new customError('invalidParams'));
+
+    var authService = new AuthService();
+
+    authService.hash(user.password, function(err, hash){
+      if (err) return callback(new customError('unknownError'));
+
+      var sql = 'INSERT INTO users (first_name, last_name, email, password, role) VALUES ';
+      sql += '("'+user.first_name+'", "'+user.last_name+'", "'+user.email+'", "'+hash+'", "'+user.role+'")';
+
+      conexionDB.query(sql, function (err, result) {
+        if (err) throw err;
+
+        callback(null, true);
+
+      })
+
+    });
 
   }
 

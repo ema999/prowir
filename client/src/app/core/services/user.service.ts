@@ -83,4 +83,16 @@ export class UserService
         );
     }
 
+    editUser(user, callback) {
+
+      this.authHttp.put(environment.baseUrl + '/api/user/'+ user.id, user)
+        .subscribe(
+          data => {
+            let dataParsed = data.json();
+            return callback(null, dataParsed);
+          },
+          err => callback(err)
+        );
+    }
+
 }

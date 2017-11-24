@@ -6,7 +6,8 @@ module.exports = {
 		editUser: true,
 		getUser: true,
 		searchUsers: true,
-		deleteUsers: true
+		deleteUsers: true,
+		addUser: true
 	},
 
 

@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../core/services/user.service';
 import { fuseAnimations } from '../../../core/animations';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-    selector   : 'users-edit',
-    templateUrl: './users-edit.component.html',
-    styleUrls  : ['./users-edit.component.scss'],
+    selector   : 'users-add',
+    templateUrl: './users-add.component.html',
+    styleUrls  : ['./users-add.component.scss'],
     animations : fuseAnimations
 })
-export class UsersEdit implements OnInit
+export class UsersAdd implements OnInit
 {
     userId: number;
     user: any = {};
@@ -18,12 +18,9 @@ export class UsersEdit implements OnInit
     formErrors: any;
     saving : boolean = false;
 
-    constructor(private userService: UserService, private route: ActivatedRoute, private router: Router,
+    constructor(private userService: UserService, private router: Router,
     private formBuilder: FormBuilder )
     {
-      this.route.params.subscribe((params: Params) => {
-        this.userId = params['id'];
-      });
 
       this.formErrors = {
           first_name : {},
@@ -34,19 +31,6 @@ export class UsersEdit implements OnInit
 
     ngOnInit()
     {
-      this.userService.getAccount(this.userId, (err, user)=>{
-
-        if(err || !user) return this.router.navigateByUrl('/pages/errors/error-404');
-        this.user = user;
-
-        for (let prop in user) {
-          if(this.form.controls[''+prop+'']){
-            this.form.controls[''+prop+''].setValue(this.user[''+prop+'']);
-          }
-        }
-
-      });
-
       this.form = this.formBuilder.group({
           first_name : ['', Validators.required],
           last_name  : ['', Validators.required],
@@ -93,7 +77,7 @@ export class UsersEdit implements OnInit
       return data;
     }
 
-    editUser()
+    addUser()
     {
       this.saving = true;
       let userData = Object.assign(this.user,this.getFormValues());
