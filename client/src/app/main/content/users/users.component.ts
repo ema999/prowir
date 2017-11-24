@@ -4,6 +4,7 @@ import { fuseAnimations } from '../../../core/animations';
 import { ToolBarTable } from '../../../core/components/toolbartable/toolbartable.component';
 import { MatDialog, MatDialogRef} from '@angular/material';
 import { FuseConfirmDialogComponent } from '../../../core/components/confirm-dialog/confirm-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
     selector   : 'users-screen',
@@ -38,7 +39,7 @@ export class UsersScreenComponent implements OnInit
       }
     ];
 
-    constructor(private userService: UserService, public dialog: MatDialog)
+    constructor(private userService: UserService, public dialog: MatDialog, private router: Router)
     {
 
     }
@@ -73,7 +74,7 @@ export class UsersScreenComponent implements OnInit
     }
 
     editUser() {
-        console.log('Edit User');
+        this.router.navigateByUrl('/users/edit/'+ this.usersSelected[0].id);
     }
 
     addUsers() {

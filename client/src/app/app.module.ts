@@ -15,6 +15,7 @@ import { AuthService } from './core/services/auth.service';
 import { UserService } from './core/services/user.service';
 import { FuseSampleModule } from './main/content/sample/sample.module';
 import { UsersModule } from './main/content/users/users.module';
+import { UsersEditModule } from './main/content/users-edit/users-edit.module';
 import { PagesModule } from './main/content/pages/pages.module';
 import { AuthGuard } from './core/services/authguard.service';
 import { AuthHttp, AuthConfig, AUTH_PROVIDERS, provideAuth } from 'angular2-jwt';
@@ -53,6 +54,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
         FuseMainModule,
         FuseSampleModule,
         UsersModule,
+        UsersEditModule,
         PagesModule
     ],
     providers   : [
