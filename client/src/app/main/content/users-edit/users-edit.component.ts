@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../core/services/user.service';
+import { UserModel } from '../../../core/models/user.model';
 import { fuseAnimations } from '../../../core/animations';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -37,7 +38,7 @@ export class UsersEdit implements OnInit
       this.userService.getAccount(this.userId, (err, user)=>{
 
         if(err || !user) return this.router.navigateByUrl('/pages/errors/error-404');
-        this.user = user;
+        this.user = new UserModel(user);
 
         for (let prop in user) {
           if(this.form.controls[''+prop+'']){
@@ -73,7 +74,7 @@ export class UsersEdit implements OnInit
             // Get the control
             const control = this.form.get(field);
 
-            if ( control && control.dirty && !control.valid )
+            if ( control && !control.valid )
             {
                 this.formErrors[field] = control.errors;
             }
@@ -93,8 +94,20 @@ export class UsersEdit implements OnInit
       return data;
     }
 
+    hasFormError()
+    {
+      let hasError = false;
+      for (let prop in  this.formErrors) {
+        if( Object.keys(this.formErrors[prop]).length > 0 ) hasError = true;
+      }
+
+      return hasError;
+    }
+
     editUser()
     {
+      this.onFormValuesChanged();
+      if (this.hasFormError()) return;
       this.saving = true;
       let userData = Object.assign(this.user,this.getFormValues());
       this.userService.editUser(userData, (err, user)=>{

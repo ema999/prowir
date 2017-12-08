@@ -59,9 +59,12 @@
                   <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
                       <md-input-container fxFlex="33">
-                          <input mdInput placeholder="Email" formControlName="email">
+                          <input mdInput placeholder="Email" formControlName="email" email="true">
                           <md-error *ngIf="formErrors.email.required">
                               Requerido
+                          </md-error>
+                          <md-error *ngIf="formErrors.email.email && !formErrors.email.required">
+                              E-mail inválido
                           </md-error>
                       </md-input-container>
 

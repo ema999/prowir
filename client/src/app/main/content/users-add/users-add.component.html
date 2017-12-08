@@ -58,12 +58,38 @@
 
                   <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
-                      <md-input-container fxFlex="33">
-                          <input mdInput placeholder="Email" formControlName="email">
+                      <md-input-container fxFlex="50">
+                          <input mdInput placeholder="Email" formControlName="email" type="email" email="true">
                           <md-error *ngIf="formErrors.email.required">
                               Requerido
                           </md-error>
+                          <md-error *ngIf="formErrors.email.email && !formErrors.email.required">
+                              E-mail inválido
+                          </md-error>
                       </md-input-container>
+
+                      <md-input-container fxFlex="50">
+                          <input mdInput placeholder="Password" type="password" formControlName="password">
+                          <md-error *ngIf="formErrors.password.required">
+                              Requerido
+                          </md-error>
+                      </md-input-container>
+
+                  </div>
+
+                  <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+                    <div fxFlex="50">
+                      <md-select placeholder="Rol" formControlName="role">
+                          <md-option *ngFor="let role of roles" [value]="role.value">
+                                {{ role.viewValue }}
+                          </md-option>
+                      </md-select>
+                      <md-error *ngIf="formErrors.role.required">
+                            Requerido
+                      </md-error>
+                    </div>
+
 
                   </div>
 
@@ -75,7 +101,7 @@
 
                       <div fxLayout="row" fxLayoutAlign="start center" fxHide fxShow.gt-xs>
                         <div class="button-row">
-                          <button md-raised-button color="accent" (click)="editUser()">Guardar</button>
+                          <button md-raised-button color="accent" (click)="addUser()">Guardar</button>
                         </div>
                       </div>
 

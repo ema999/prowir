@@ -30,7 +30,8 @@ import {
     MdStepperModule,
     MdSortModule,
     MdTableModule,
-    MdTabsModule
+    MdTabsModule,
+    MdFormFieldModule
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 
@@ -67,7 +68,8 @@ import { CdkTableModule } from '@angular/cdk/table';
         MdTabsModule,
         MdToolbarModule,
         MdTooltipModule,
-        CdkTableModule
+        CdkTableModule,
+        MdFormFieldModule
     ],
     exports: [
         MdAutocompleteModule,
@@ -101,7 +103,8 @@ import { CdkTableModule } from '@angular/cdk/table';
         MdTabsModule,
         MdToolbarModule,
         MdTooltipModule,
-        CdkTableModule
+        CdkTableModule,
+        MdFormFieldModule
     ]
 })
 export class MaterialModule

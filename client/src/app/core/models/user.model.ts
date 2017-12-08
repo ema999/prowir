@@ -5,6 +5,7 @@ export class UserModel {
     last_name;
     id;
     role;
+    password;
 
     constructor(data){
       this.email = data.email;
@@ -12,6 +13,7 @@ export class UserModel {
       this.last_name = data.last_name;
       this.role = data.role;
       this.id = data.id;
+      this.password = data.password;
     }
 
 }
