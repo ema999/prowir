@@ -31,20 +31,27 @@ var UserService = function(){
 
     if(Object.keys(userData).length === 0) return callback(null, {})
 
-    var sql = 'UPDATE users SET  ';
-    if (userData.first_name) sql += ' first_name = "'+ userData.first_name +'" ';
-    if (userData.last_name) sql += ', last_name = "'+ userData.last_name +'" ';
-    if (userData.email) sql += ', email = "'+ userData.email +'" ';
-    sql += ' WHERE id = ' + id;
+    var authService = new AuthService();
 
-    conexionDB.query(sql, function (err, result) {
-      if (err) throw err;
+    authService.isUserExist(userData.email, function(err, result){console.log(result);
+      if (err || result && result.id != id) return callback(new customError('userExist'));
 
-      var result = JSON.parse(JSON.stringify(result));
+      var sql = 'UPDATE users SET  ';
+      if (userData.first_name) sql += ' first_name = "'+ userData.first_name +'" ';
+      if (userData.last_name) sql += ', last_name = "'+ userData.last_name +'" ';
+      if (userData.email) sql += ', email = "'+ userData.email +'" ';
+      sql += ' WHERE id = ' + id;
 
-      if (!result.affectedRows || result.affectedRows != 1) return callback(new customError('userDontExist'));
+      conexionDB.query(sql, function (err, result) {
+        if (err) throw err;
 
-      callback(null, true)
+        var result = JSON.parse(JSON.stringify(result));
+
+        if (!result.affectedRows || result.affectedRows != 1) return callback(new customError('userDontExist'));
+
+        callback(null, true)
+      })
+
     })
 
   }
@@ -139,20 +146,25 @@ var UserService = function(){
 
     var authService = new AuthService();
 
-    authService.hash(user.password, function(err, hash){
-      if (err) return callback(new customError('unknownError'));
+    authService.isUserExist(user.email, function(err, result){
+      if (err || result) return callback(new customError('userExist'));
 
-      var sql = 'INSERT INTO users (first_name, last_name, email, password, role) VALUES ';
-      sql += '("'+user.first_name+'", "'+user.last_name+'", "'+user.email+'", "'+hash+'", "'+user.role+'")';
+      authService.hash(user.password, function(err, hash){
+        if (err) return callback(new customError('unknownError'));
 
-      conexionDB.query(sql, function (err, result) {
-        if (err) throw err;
+        var sql = 'INSERT INTO users (first_name, last_name, email, password, role) VALUES ';
+        sql += '("'+user.first_name+'", "'+user.last_name+'", "'+user.email+'", "'+hash+'", "'+user.role+'")';
 
-        callback(null, true);
+        conexionDB.query(sql, function (err, result) {
+          if (err) throw err;
 
-      })
+          callback(null, true);
 
-    });
+        })
+
+      });
+
+    })
 
   }
 

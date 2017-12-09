@@ -70,6 +70,16 @@
 
                   </div>
 
+                  <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" *ngIf="serverError">
+
+                    <div fxFlex="100" class="pt-16">
+                      <md-error>
+                            {{serverError}}
+                      </md-error>
+                    </div>
+
+                  </div>
+
                   <div fxLayout="row" fxLayoutAlign="center center" fxLayoutAlign.gt-xs="space-between center" fxFlex class="m-16">
 
                       <div fxFlex="0 0 auto" fxLayout="row"

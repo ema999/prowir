@@ -18,6 +18,7 @@ export class UsersEdit implements OnInit
     form: FormGroup;
     formErrors: any;
     saving : boolean = false;
+    serverError : string;
 
     constructor(private userService: UserService, private route: ActivatedRoute, private router: Router,
     private formBuilder: FormBuilder )
@@ -112,6 +113,8 @@ export class UsersEdit implements OnInit
       let userData = Object.assign(this.user,this.getFormValues());
       this.userService.editUser(userData, (err, user)=>{
         this.saving = false;
+        this.serverError = null;
+        if (err) return this.serverError = err.message;
       });
     }
 

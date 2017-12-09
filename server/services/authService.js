@@ -80,6 +80,21 @@ var AuthService = function(){
     }
   }
 
+  AuthService.prototype.isUserExist = function (email, callback) {
+    var that = this;
+    var sql = 'select email, id from users where email ="'+email+'"';
+
+    conexionDB.query(sql, function (err, result) {
+      if (err) throw err;
+
+      var result = JSON.parse(JSON.stringify(result));
+
+      if (!result[0]) return callback(null, false);
+
+      callback(null, result[0]);
+    })
+  }
+
 }
 
 module.exports = AuthService;

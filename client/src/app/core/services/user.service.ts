@@ -91,7 +91,7 @@ export class UserService
             let dataParsed = data.json();
             return callback(null, dataParsed);
           },
-          err => callback(err)
+          err => callback(err.json())
         );
     }
 
@@ -103,7 +103,7 @@ export class UserService
             let dataParsed = data.json();
             return callback(null, dataParsed);
           },
-          err => callback(err)
+          err => callback(err.json())
         );
     }
 

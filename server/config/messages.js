@@ -42,6 +42,11 @@ module.exports = {
 	userDontExist : {
     httpStatus : 404,
 		description : "El usuario no existe."
+  },
+
+	userExist : {
+    httpStatus : 401,
+		description : "El e-mail corresponde a un usuario existente."
   }
 
 };

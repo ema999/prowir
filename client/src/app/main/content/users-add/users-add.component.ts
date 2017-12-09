@@ -19,6 +19,7 @@ export class UsersAdd implements OnInit
     formErrors: any;
     saving : boolean = false;
     roles : any = [];
+    serverError : string;
 
     constructor(private userService: UserService, private router: Router,
     private formBuilder: FormBuilder )
@@ -115,6 +116,8 @@ export class UsersAdd implements OnInit
       let userData = Object.assign(this.user,this.getFormValues());
       this.userService.addUser(userData, (err, user)=>{
         this.saving = false;
+        this.serverError = null;
+        if (err) return this.serverError = err.message;
         return this.router.navigateByUrl('/users');
       });
     }
