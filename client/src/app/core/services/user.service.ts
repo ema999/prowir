@@ -60,4 +60,51 @@ export class UserService
         );
     }
 
+    deleteUsers(users, usersToRemove, callback) {
+      let usersParsed = usersToRemove.map(u => {return {id: u.id} });
+
+      this.authHttp.post(environment.baseUrl + '/api/user/delete', usersToRemove)
+        .subscribe(
+          data => {
+            let dataParsed = data.json();
+
+            let usersUp = users.filter(u => {
+              return !usersParsed.find(up => up.id == u.id)
+            }).map(u => {
+              delete u.$$index;
+              return u;
+            });
+
+            this.userListSource.next(usersUp);
+            this.userListTotalSource.next(dataParsed.total);
+            return callback(null, dataParsed);
+          },
+          err => callback(err)
+        );
+    }
+
+    editUser(user, callback) {
+
+      this.authHttp.put(environment.baseUrl + '/api/user/'+ user.id, user)
+        .subscribe(
+          data => {
+            let dataParsed = data.json();
+            return callback(null, dataParsed);
+          },
+          err => callback(err.json())
+        );
+    }
+
+    addUser(user, callback) {
+
+      this.authHttp.post(environment.baseUrl + '/api/user', user)
+        .subscribe(
+          data => {
+            let dataParsed = data.json();
+            return callback(null, dataParsed);
+          },
+          err => callback(err.json())
+        );
+    }
+
 }

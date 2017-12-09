@@ -11,6 +11,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FuseMdSidenavHelperDirective, FuseMdSidenavTogglerDirective } from '../directives/md-sidenav-helper/md-sidenav-helper.directive';
 import { FusePipesModule } from '../pipes/pipes.module';
 import { FuseConfirmDialogComponent } from '../components/confirm-dialog/confirm-dialog.component';
+import { ToolBarTable } from '../components/toolbartable/toolbartable.component';
 import { FuseCountdownComponent } from '../components/countdown/countdown.component';
 import { FuseMatchMedia } from '../services/match-media.service';
 import { FuseNavbarVerticalService } from '../../main/navbar/vertical/navbar-vertical.service';
@@ -27,6 +28,7 @@ import { CookieService } from 'ngx-cookie-service';
         FuseMdSidenavHelperDirective,
         FuseMdSidenavTogglerDirective,
         FuseConfirmDialogComponent,
+        ToolBarTable,
         FuseCountdownComponent,
         FuseHljsComponent,
         FuseIfOnDomDirective,
@@ -54,6 +56,7 @@ import { CookieService } from 'ngx-cookie-service';
         FuseMdSidenavTogglerDirective,
         FusePipesModule,
         FuseCountdownComponent,
+        ToolBarTable,
         FuseHljsComponent,
         FusePerfectScrollbarDirective,
         ReactiveFormsModule,

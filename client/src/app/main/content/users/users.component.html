@@ -36,7 +36,7 @@
 
             <!-- CONTENT TOOLBAR -->
             <div class="toolbar px-24 py-8">
-                <span>Content toolbar</span>
+                <toolbar-table [buttons]=buttons [selecteds]="usersSelected" (onAction)="onAction($event)"></toolbar-table>
             </div>
             <!-- / CONTENT TOOLBAR -->
 
@@ -59,7 +59,9 @@
                   [count]="usersTotal"
                   [offset]="page"
                   (page)='setPage($event)'
-                  [limit]="limit">
+                  [limit]="limit"
+                  [selected]="usersSelected"
+                  (select)='onSelect($event)'>
 
                   <ngx-datatable-column [width]="48"
                                         [canAutoResize]="false"
@@ -85,6 +87,9 @@
                   </ngx-datatable-column>
 
                   <ngx-datatable-column name="E-mail" prop="email">
+                  </ngx-datatable-column>
+
+                  <ngx-datatable-column name="Rol" prop="role">
                   </ngx-datatable-column>
               </ngx-datatable>
 

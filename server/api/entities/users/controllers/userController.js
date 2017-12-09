@@ -58,4 +58,24 @@ UserController.search = function(options, callback){
 
 }
 
+UserController.deleteUsers = function(users, callback){
+  var userService = new UserService();
+
+  userService.deleteUsers(users, function(err, result){
+    if (err) return callback(err)
+    callback(null, result);
+  })
+
+}
+
+UserController.addUser = function(user, callback){
+  var userService = new UserService();
+
+  userService.addUser(user, function(err, result){
+    if (err) return callback(err)
+    callback(null, result);
+  })
+
+}
+
 module.exports = UserController;

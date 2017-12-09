@@ -1,0 +1,112 @@
+<div class="page-layout carded fullwidth" fusePerfectScrollbar>
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg md-accent-bg"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- CONTENT HEADER -->
+        <div class="header p-sm-24" fxLayout="column" fxLayoutAlign="start start"
+             fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+
+                <div class="logo" fxLayout="row" fxLayoutAlign="start center">
+                    <md-icon class="logo-icon mr-16 white-fg" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">person</md-icon>
+                    <a [routerLink]="['/users']"><span class="logo-text h1 white-fg" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Usuarios</span></a>
+                    <md-icon class="secondary-text s-16 mat-icon material-icons" role="img" aria-hidden="true">chevron_right</md-icon>
+                    <span class="logo-text h1 white-fg" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Editar</span>
+                </div>
+
+            </div>
+            <!-- / APP TITLE -->
+
+
+        </div>
+        <!-- / CONTENT HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content md-white-bg">
+
+            <!-- CONTENT -->
+
+            <div class="content">
+
+              <form class="md-white-bg mat-elevation-z4 p-24 mb-24" fxLayout="column" fxLayoutAlign="start"
+                    fxFlex="1 0 auto" name="form" [formGroup]="form" *ngIf="!saving">
+
+                  <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+                      <md-input-container fxFlex="50">
+                          <input mdInput placeholder="Nombre" formControlName="first_name">
+                          <md-error *ngIf="formErrors.first_name.required">
+                              Requerido
+                          </md-error>
+                      </md-input-container>
+
+                      <md-input-container fxFlex="50">
+                          <input mdInput placeholder="Apellido" formControlName="last_name">
+                          <md-error *ngIf="formErrors.last_name.required">
+                              Requerido
+                          </md-error>
+                      </md-input-container>
+
+                  </div>
+
+                  <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+                      <md-input-container fxFlex="33">
+                          <input mdInput placeholder="Email" formControlName="email" email="true">
+                          <md-error *ngIf="formErrors.email.required">
+                              Requerido
+                          </md-error>
+                          <md-error *ngIf="formErrors.email.email && !formErrors.email.required">
+                              E-mail inválido
+                          </md-error>
+                      </md-input-container>
+
+                  </div>
+
+                  <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" *ngIf="serverError">
+
+                    <div fxFlex="100" class="pt-16">
+                      <md-error>
+                            {{serverError}}
+                      </md-error>
+                    </div>
+
+                  </div>
+
+                  <div fxLayout="row" fxLayoutAlign="center center" fxLayoutAlign.gt-xs="space-between center" fxFlex class="m-16">
+
+                      <div fxFlex="0 0 auto" fxLayout="row"
+                         fxLayoutAlign="start center">
+                      </div>
+
+                      <div fxLayout="row" fxLayoutAlign="start center" fxHide fxShow.gt-xs>
+                        <div class="button-row">
+                          <button md-raised-button color="accent" (click)="editUser()">Guardar</button>
+                        </div>
+                      </div>
+
+                  </div>
+
+              </form>
+
+              <span class="fuse-search-bar-loader" fxLayout="row" fxLayoutAlign="center center" *ngIf="saving">
+                  <md-progress-spinner color="md-accent" mode="indeterminate"></md-progress-spinner>
+              </span>
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

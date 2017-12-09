@@ -22,6 +22,22 @@ module.exports = {
       limit: Joi.number().min(1).max(20),
       page: Joi.number().min(0)
     }
+  },
+
+  delete: {
+    body: {
+      users: Joi.array()
+    }
+  },
+
+  add: {
+    body: {
+      email: Joi.string().email(),
+      first_name: Joi.string(),
+      last_name: Joi.string(),
+      password: Joi.string().regex(/[a-zA-Z0-9]{3,30}/).required(),
+      role: Joi.string()
+    }
   }
 
 };

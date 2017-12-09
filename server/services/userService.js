@@ -31,20 +31,27 @@ var UserService = function(){
 
     if(Object.keys(userData).length === 0) return callback(null, {})
 
-    var sql = 'UPDATE users SET id = '+id+' ';
-    if (userData.first_name) sql += ', first_name = "'+ userData.first_name +'" ';
-    if (userData.last_name) sql += ', last_name = "'+ userData.last_name +'" ';
-    if (userData.email) sql += ' email = "'+ userData.email +'" ';
-    sql += ' WHERE id = ' + id;
+    var authService = new AuthService();
 
-    conexionDB.query(sql, function (err, result) {
-      if (err) throw err;
+    authService.isUserExist(userData.email, function(err, result){console.log(result);
+      if (err || result && result.id != id) return callback(new customError('userExist'));
 
-      var result = JSON.parse(JSON.stringify(result));
+      var sql = 'UPDATE users SET  ';
+      if (userData.first_name) sql += ' first_name = "'+ userData.first_name +'" ';
+      if (userData.last_name) sql += ', last_name = "'+ userData.last_name +'" ';
+      if (userData.email) sql += ', email = "'+ userData.email +'" ';
+      sql += ' WHERE id = ' + id;
 
-      if (!result.affectedRows || result.affectedRows != 1) return callback(new customError('userDontExist'));
+      conexionDB.query(sql, function (err, result) {
+        if (err) throw err;
 
-      callback(null, true)
+        var result = JSON.parse(JSON.stringify(result));
+
+        if (!result.affectedRows || result.affectedRows != 1) return callback(new customError('userDontExist'));
+
+        callback(null, true)
+      })
+
     })
 
   }
@@ -71,7 +78,7 @@ var UserService = function(){
     if(!options.limit) options.limit = 20;
     if(!options.page) options.page = 0;
 
-    var sql = 'select email, id, first_name, last_name from users';
+    var sql = 'select email, id, first_name, last_name, role from users';
 
     // Pagination
     var end = options.limit * (options.page);
@@ -103,6 +110,60 @@ var UserService = function(){
       var result = JSON.parse(JSON.stringify(result));
 
       callback(null, result[0].total)
+    })
+
+  }
+
+  UserService.prototype.deleteUsers = function (users, callback) {
+    that = this;
+
+    if (!users.length) return callback(new customError('invalidParams'));
+
+    var usersId = '(';
+    users.forEach(function(e, index){
+      if(index > 0) usersId += ',';
+      usersId += e.id
+    });
+    usersId += ')';
+
+    var sql = 'DELETE FROM users WHERE id IN '+ usersId;
+
+    conexionDB.query(sql, function (err, result) {
+      if (err) throw err;
+
+      that.getUsersTotal(function(err, total){
+        callback(null, {total: total})
+      });
+
+    })
+
+  }
+
+  UserService.prototype.addUser = function (user, callback) {
+    that = this;
+
+    if (!user) return callback(new customError('invalidParams'));
+
+    var authService = new AuthService();
+
+    authService.isUserExist(user.email, function(err, result){
+      if (err || result) return callback(new customError('userExist'));
+
+      authService.hash(user.password, function(err, hash){
+        if (err) return callback(new customError('unknownError'));
+
+        var sql = 'INSERT INTO users (first_name, last_name, email, password, role) VALUES ';
+        sql += '("'+user.first_name+'", "'+user.last_name+'", "'+user.email+'", "'+hash+'", "'+user.role+'")';
+
+        conexionDB.query(sql, function (err, result) {
+          if (err) throw err;
+
+          callback(null, true);
+
+        })
+
+      });
+
     })
 
   }

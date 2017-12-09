@@ -12,7 +12,9 @@ var routes = {
   login   : '/login',
   getCurrentAccount: '/current',
   editUser: '/:id',
-  search: '/search'
+  search: '/search',
+  deleteUsers: '/delete',
+  addUser : '/'
 }
 
 var authMiddleware = new AuthMiddleware();
@@ -93,6 +95,36 @@ router.post(routes.search, authMiddleware.isLogged, Validate(userValidation.sear
       if(err) return res.status(err.httpStatusCode).jsonp(err);
 
       res.status(200).jsonp(users);
+    })
+
+  });
+
+});
+
+router.post(routes.deleteUsers, authMiddleware.isLogged,  function(req, res) {
+
+  permissionService.hasPermission('deleteUsers', req.get("authorization"), function(err, result){
+    if(err) return res.status(err.httpStatusCode).jsonp(err);
+
+    UserController.deleteUsers(req.body, function(err, result){
+      if(err) return res.status(err.httpStatusCode).jsonp(err);
+
+      res.status(200).jsonp(result);
+    })
+
+  });
+
+});
+
+router.post(routes.addUser, authMiddleware.isLogged, Validate(userValidation.add),  function(req, res) {
+
+  permissionService.hasPermission('addUser', req.get("authorization"), function(err, result){
+    if(err) return res.status(err.httpStatusCode).jsonp(err);
+
+    UserController.addUser(req.body, function(err, result){
+      if(err) return res.status(err.httpStatusCode).jsonp(err);
+
+      res.status(200).jsonp(result);
     })
 
   });

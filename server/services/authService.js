@@ -49,7 +49,7 @@ var AuthService = function(){
       last_name: user.last_name,
       role: user.role
     };
-    var expires = moment().add(30, 'day').unix();
+    var expires = moment().add(20, 'hours').unix();
 
     var token = jwt.encode({
       iat: moment().unix(),
@@ -78,6 +78,21 @@ var AuthService = function(){
     catch(err) {
       return callback(new customError('invalidToken'));
     }
+  }
+
+  AuthService.prototype.isUserExist = function (email, callback) {
+    var that = this;
+    var sql = 'select email, id from users where email ="'+email+'"';
+
+    conexionDB.query(sql, function (err, result) {
+      if (err) throw err;
+
+      var result = JSON.parse(JSON.stringify(result));
+
+      if (!result[0]) return callback(null, false);
+
+      callback(null, result[0]);
+    })
   }
 
 }
